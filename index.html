@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/fontawesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/1395a25f53.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="calculator">
+        <div class="menu-bar">
+            <span>Calculator</span>
+        </div>
+        <div class="fields">
+            
+            <input type="text" class="input-field" id="input-field" disabled>
+
+            <div class="output">
+                <input type="text" id="output-field" class="output-field" disabled>
+                <button class="copy" id="copy-btn"><i class="far fa-copy"></i></button>
+            </div>
+        </div>
+        <div class="buttons" id="buttons">
+            <div class="main">
+                <div class="main-numbers">
+                    <button data-number value="7" data-display="7">7</button>
+                    <button data-number value="8" data-display="8">8</button>
+                    <button data-number value="9" data-display="9">9</button>
+                    
+                    <button data-number value="4" data-display="4">4</button>
+                    <button data-number value="5" data-display="5">5</button>
+                    <button data-number value="6" data-display="6">6</button>
+                    
+                    <button data-number value="1" data-display="1">1</button>
+                    <button data-number value="2" data-display="2">2</button>
+                    <button data-number value="3" data-display="3">3</button> 
+                    
+                    <button data-number value="." data-display=".">.</button>
+                    <button data-number value="0" data-display="0">0</button>
+                    <button id="equal"><i class="fas fa-equals"></i></button>  
+                </div>
+                
+                <div class="operators">
+                    <button id="backspace"><i class="fas fa-backspace"></i></button>
+                    <button data-operator value="/" data-display="÷"><i class="fas fa-divide"></i></button>
+                    <button data-operator value="*" data-display="×"><i class="fas fa-times"></i></button>
+                    <button data-operator value="-" data-display="-"><i class="fas fa-minus"></i></button>
+                    <button data-operator value="+" data-display="+"><i class="fas fa-plus"></i></button>
+                </div>
+    
+            </div>
+            
+           <div class="over-lay">
+            <div class="chevron">
+                <i class="fas fa-chevron-up"></i>
+            </div>
+            <div class="aside">
+                <button data-advance  value="Math.sqrt(" data-display="√(">√</button>
+                <button data-advance  value="**2" data-display="^2">x<sup>2</sup></button>
+                <button data-advance  value="/100" data-display="%">%</button>
+                <button data-advance  value="*Math.PI" data-display="π">π</button>
+                <button data-advance >cos</button>
+                <button data-advance >sin</button>
+                <button data-advance >tan</button>
+                <button data-advance  value="(" data-display="(" > ( </button>
+                <button data-advance  value="Math.log10(" data-display="log10(">log</button>
+                <button data-advance  value="Math.log(" data-display="log(">ln</button>
+                <button data-advance  value="Math.exp(" data-display="e">e</button>
+                <button data-advance  value=")" data-display=")">)</button>
+                
+            </div>
+           </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="UI.js"></script>
+</body>
+</html>
