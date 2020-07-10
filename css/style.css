@@ -95,7 +95,9 @@ button {
     text-align: right;
     outline: none;
     word-wrap: break-word;
-    color: rgb(241, 192, 99);
+    /* color: rgb(241, 192, 99); */
+    color: black;
+    font-weight: bold;
 }
 .fields>.output {
     padding: 0;
@@ -111,7 +113,7 @@ button {
 .output .output-field {
     padding: 0 10px;
     color: black;
-    color: rgb(243, 158, 0);
+    /* color: rgb(243, 158, 0); */
     font-size: 35px;
 
 }
