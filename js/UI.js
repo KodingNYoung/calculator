@@ -51,7 +51,7 @@ const handleChevronClick = (e) => {
     
     // console.log(mainBtns);
     if (chevIcon.className === "fas fa-chevron-up"){
-        console.log("go up");
+        // console.log("go up");
 
         // go up
         overlay.style.transform ="translateY(-89%)";
@@ -62,7 +62,7 @@ const handleChevronClick = (e) => {
         // disable pointer activity in the main
         main.classList.add("disabled"); 
     }else if (chevIcon.className === "fas fa-chevron-down"){
-        console.log("go down");
+        // console.log("go down");
 
         // go down
         overlay.style.transform ="translateY(0%)";

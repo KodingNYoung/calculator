@@ -2,7 +2,7 @@
 
 
 // variables
-let display = "", current = "", value= "", ans; 
+let display = [], current = "", value= [], ans;
 
 // any button that is pressed will be displayed
 
@@ -28,6 +28,11 @@ const outputDisplay = document.getElementById("output-field");
 // get the backspace
 const backspace = document.getElementById("backspace");
 
+// ADVANCE FUNCTIONS
+const advanceFunctionsBtn = document.querySelectorAll("button[data-advance]") 
+
+// console.log(advanceFunctionsBtn)
+
 // functions
 // handle numbers
 const handleNumbers = (e) => {
@@ -35,28 +40,37 @@ const handleNumbers = (e) => {
     const target = e.target;
 
     // check if the input is a dot and handle
-    if (e.target.dataset.display === "." && !validDot()) return;
+    if (e.target.dataset.display === "." && !isDotValid()) return;
 
     // update the current and input value
     current += target.dataset.display;
     
-    display += target.dataset.display;
+    display.push(target.dataset.display);
 
-    value += target.value;
+    value.push(target.value);
 
     // update display
     updateInputDisplay();
 
     // console.log(current);
+    // console.log(display);
 }
 
 // check if the dot addition is valid
-const validDot = () => {
+const isDotValid = () => {
     // returns false if there's a dot aiidy
     if (current.includes(".")) return false;
 
     // else return true
     return true;
+}
+
+// update display
+const updateInputDisplay = () => {
+    // merge the list items
+    const liMerged = display.join("");
+
+    inputDisplay.value = liMerged;
 }
 
 // handle operators
@@ -69,34 +83,35 @@ const handleOperators = (e) => {
     // empty the current string
     current ="";
 
-    // if there was an answer there before
-    if (checkAnswer(target)) return;
+    // check if there was an answer there before
+    if (isAnswerPresent(target)) return;
 
     // check if sign is valid
-    if (!validSign(target)) return;
+    if (!isSignValid(target)) return;
 
     // if the sign is valid
     // update the display and value variable
-    display += target.dataset.display;
+    display.push(target.dataset.display);
 
-    value += target.value;
+    value.push(target.value);
 
     // update display
     updateInputDisplay();
 }
 
 // check there was answer before this
-const checkAnswer = (target) => {
+const isAnswerPresent = (target) => {
     // if there is an answer and input is clear
     if (ans && !inputDisplay.value) {
         // make the answer to display with the operator 
-        display = ans.toString() + target.dataset.display; 
+        display = [ans.toString(), target.dataset.display]; 
 
-        value = ans.toString() + target.value;
+        value = [ans.toString(), target.value];
 
         // update the display
         updateInputDisplay();
 
+        // clear display output
         outputDisplay.value = "";
         
         return true;
@@ -104,7 +119,7 @@ const checkAnswer = (target) => {
 
     return false;
 }
-const validSign = (target) => {
+const isSignValid = (target) => {
     const sign = target.value;
     // get the last input of the display
     
@@ -112,7 +127,7 @@ const validSign = (target) => {
     
     // return false
     // if the input is clear or the last input was a sign and the new sign is not "-"
-    if (((value === "") || (["+", "*", "/"].includes(prevEntry))) && !(target.value === "-")) {
+    if (((value.length === 0) || (["+", "*", "/"].includes(prevEntry))) && !(sign === "-")) {
         console.log("invalid-sign")
         return false;
     }else if (prevEntry==="-"){
@@ -128,31 +143,37 @@ const validSign = (target) => {
 
 // equal
 const handleEqual = () => {
-    // if there is not value, don't go further
-    if (!value) return;
+    // if there is no value, don't go further
+    if (!value[0]) return;
 
-    // the value variable and find the eval value
-    ans = eval(value)
+    // merge the value list
+    let valueListMerged = value.join("")
 
-    // check for the number of d.p for the answer
-    const dec = checkDecimalPlace(ans);
+    // get the merged value and find the eval value
+    ans = eval(valueListMerged)
+
+    // get the number of d.p for the answer
+    const DP = getDecimalPlace(ans);
 
     // show it on the output
-    outputDisplay.value = ans.toFixed(dec);
+    outputDisplay.value = eval(ans.toFixed(DP));
 
-    // clear the display screen, current variable and display variable
-    inputDisplay.value = "";
+    // clear the input display screen, current variable and display variable
     current = "";
-    display = "";
-    value = "";
+    display = [];
+    value = [];
+
+    // update display
+    updateInputDisplay();
 }
 
 // check the dp of a number
-const checkDecimalPlace = (num) => {
+const getDecimalPlace = (num) => {
     let DP =0;
 
     // if num is a decimal
     if (!(num % 1 === 0)){
+        // get the decimal part
         const decimal = num.toString().split(".")[1];
 
         // get the num of decimal place
@@ -163,7 +184,6 @@ const checkDecimalPlace = (num) => {
             DP = 12;
         }
     }
-
     return DP;
 }
 // handle backspace
@@ -171,27 +191,84 @@ const handleBackspace = () => {
     // get the prev entry
     const prevEntry = value[value.length -1];
 
-    // if its a reg number, delete for current, value and display
+    // if it's a number, delete for current, value and display
     if (!isNaN(prevEntry) || prevEntry === ".") {
         current = current.slice(0, -1);
-        value = value.slice(0, -1);
-        display = display.slice(0, -1);
+    }else{
+        
     }
-    // if its a sign, delete for value and display
-    if (["+", "*", "/", "-"].includes(prevEntry)) {
-        value = value.slice(0, -1);
-        display = display.slice(0, -1);
-    }
+    backspaceDisplays();
+
     // if it is some other things, do some other things
 
+    // update the input
+    updateInputDisplay();
+}
+
+// backspace displays
+const backspaceDisplays = () => {
+    value = value.slice(0, -1);
+    display = display.slice(0, -1);
+}
+
+// handle advanced functions
+const handleAdvancedFunctions = (e) => {
+    // get the target btn
+    const target = e.target;
+
+    // check if the button is for level 1
+    if (target.dataset.level === "1"){
+        handleLevelOne(target);
+    }
+    // if it's for level zero
+    else if (target.dataset.display === "^" || target.dataset.display === "%"){
+        handleLevelZero(target);
+    }
+    else{
+        display.push(e.target.dataset.display);
+
+        value.push(e.target.value);
+    }
 
     updateInputDisplay();
 }
 
-// update display
-const updateInputDisplay = () => {
-    inputDisplay.value = display;
+// handle square
+const handleLevelZero = (target) => {
+    // get the last entry
+    const lastEntry = value[value.length-1];
+
+    // if the last entry is a number
+    if (!isNaN(lastEntry)){
+        // display the power
+        display.push(target.dataset.display);
+
+        value.push(target.value)
+    }
 }
+
+// handle square root
+const handleLevelOne = (target) => {
+    // get the last entry
+    const lastEntry = value[value.length-1];
+
+    // if the last entry is a number
+    if (!isNaN(lastEntry)){
+        // put a time before it
+        display.push(`${target.dataset.display}`);
+
+        value.push(`*${target.value}`)
+         
+        console.log("added times")
+    }else {
+        // put a time before it
+        display.push(target.dataset.display);
+
+        value.push(target.value);
+    }
+
+}
+
 // add event listener to it...
 // numbers
 numberBtns.forEach(numberBtn => {
@@ -208,3 +285,8 @@ equal.addEventListener("click", handleEqual);
 
 // backspace
 backspace.addEventListener("click", handleBackspace);
+
+// advance functions
+advanceFunctionsBtn.forEach(advancedBtn =>{
+    advancedBtn.addEventListener("click", handleAdvancedFunctions)
+})

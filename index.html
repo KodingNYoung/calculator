@@ -58,24 +58,24 @@
                 <i class="fas fa-chevron-up"></i>
             </div>
             <div class="aside">
-                <button data-advance  value="Math.sqrt(" data-display="√(">√</button>
-                <button data-advance  value="**2" data-display="^2">x<sup>2</sup></button>
-                <button data-advance  value="/100" data-display="%">%</button>
-                <button data-advance  value="*Math.PI" data-display="π">π</button>
-                <button data-advance >cos</button>
-                <button data-advance >sin</button>
-                <button data-advance >tan</button>
-                <button data-advance  value="(" data-display="(" > ( </button>
-                <button data-advance  value="Math.log10(" data-display="log10(">log</button>
-                <button data-advance  value="Math.log(" data-display="log(">ln</button>
-                <button data-advance  value="Math.exp(" data-display="e">e</button>
-                <button data-advance  value=")" data-display=")">)</button>
+                <button data-advance data-level="1" value="Math.sqrt(" data-display="√(">√</button>
+                <button data-advance data-level="0" value="**" data-display="^" >x<sup>y</sup></button>
+                <button data-advance data-level="0" value="/(100)" data-display="%">%</button>
+                <button data-number value="Math.PI" data-display="π">π</button>
+                <button data-advance data-level="1"  value="Math.cos((Math.PI/180)*" data-display="cos(">cos</button>
+                <button data-advance data-level="1"  value="Math.sin((Math.PI/180)*" data-display="sin(">sin</button>
+                <button data-advance data-level="1"  value="Math.tan((Math.PI/180)*" data-display="tan(">tan</button>
+                <button data-advance data-level="1"  value="(" data-display="(" > ( </button>
+                <button data-advance data-level="1"  value="Math.log10(" data-display="log(">log</button>
+                <button data-advance data-level="1"  value="Math.log(" data-display="ln(">ln</button>
+                <button data-advance data-level="1"  value="Math.exp(" data-display="e(">e</button>
+                <button data-advance value=")" data-display=")">)</button>
                 
             </div>
            </div>
         </div>
     </div>
-    <script src="script.js"></script>
-    <script src="UI.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/UI.js"></script>
 </body>
 </html>
