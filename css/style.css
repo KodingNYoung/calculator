@@ -1,15 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+html {
+    /* background-color: black; */
+    /* filter: invert(1) hue-rotate(180deg); */
+}
 body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 92vh;
+    height: 91vh;
     font-family: 'Noto Sans JP', sans-serif;
+    background-color: white;
+    color: black;
 }
 
 button {
@@ -17,8 +24,46 @@ button {
 }
 .menu-bar{
     height: 5%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
 }
+.menu-bar .text{
+    font-family: 'Modak', cursive;
+}
+.mode-toggle {
+    border: 1px solid black;
+    padding: 5px;
+    text-transform: uppercase;
+    font-size: 11px;
+    border-radius: 15px;
+    position: relative;
+    background-color: rgb(243, 158, 0);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    cursor: pointer;
+}
+
+.mode-toggle .toggle-button {
+    position: absolute;
+    width: 50%;
+    bottom: 0px;
+    left: 0px;
+    top: 0px;
+    background-color: black;
+    border-radius: 15px;
+    transition: transform 0.5s linear;
+    display: flex;
+    justify-content: space-between;
+}
+.toggled .toggle-button {
+    transform: translateX(100%);
+}
+
 .calculator {
+    background-color: white;
+    user-select: none;
     width: 100vw;
     max-width: 350px;
     height: 100%;
@@ -26,13 +71,18 @@ button {
     overflow: hidden;
     position: relative;
 }
+.calculator.dark {
+    filter: invert(1) hue-rotate(180deg);
+
+}
 .calculator .fields {
     height: 25%;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-top: 1px solid rgb(95, 95, 95);
+    /* border-top: 1px solid rgb(95, 95, 95); */
+    
 }
 .fields>* {
     width: 100%;
@@ -45,6 +95,7 @@ button {
     text-align: right;
     outline: none;
     word-wrap: break-word;
+    color: rgb(241, 192, 99);
 }
 .fields>.output {
     padding: 0;
@@ -60,6 +111,9 @@ button {
 .output .output-field {
     padding: 0 10px;
     color: black;
+    color: rgb(243, 158, 0);
+    font-size: 35px;
+
 }
 .output button {
     cursor: pointer;

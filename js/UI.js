@@ -6,6 +6,10 @@ const output = document.getElementById("output-field");
 const chervon = document.querySelector(".chevron");
 const overlay = document.querySelector(".over-lay");
 
+// get the mode toggler
+const modeBtn = document.getElementById("mode-toggle");
+const calculator = document.getElementById("calculator");
+
 // copy function
 const copyAns = () => {
     if (output.value){
@@ -75,9 +79,22 @@ const handleChevronClick = (e) => {
     }
 }
 
+const toggleMode = (e) => {
+    const target = e.target.closest("#mode-toggle");
+
+    // change the switch
+    target.classList.toggle("toggled");
+
+    // change the mode
+    calculator.classList.toggle("dark");
+}
+
 // add event listener to it..
 // copy
 copyBtn.addEventListener("click", copyAns)
 
 // chevron
 chervon.addEventListener("click", handleChevronClick);
+
+// mode toggle
+modeBtn.addEventListener("click", toggleMode)
