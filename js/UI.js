@@ -1,11 +1,18 @@
+// COPY FEATURE
 // get the copy button and the output
 const copyBtn = document.getElementById("copy-btn");
 const output = document.getElementById("output-field");
 
+// EXTRA BUTTONS SLIDE UP FEATURE
 // get the chevron container and overlay
 const chervon = document.querySelector(".chevron");
 const overlay = document.querySelector(".over-lay");
+// get the main button container
+const main = document.querySelector(".main");
+// get the icon
+const chevIcon =  document.querySelector(".fa-chevron-up");
 
+// DARK MODE FEATTURE
 // get the mode toggler
 const modeBtn = document.getElementById("mode-toggle");
 const calculator = document.getElementById("calculator");
@@ -44,15 +51,6 @@ const copyText = (text) => {
 }
 // chevron click handler
 const handleChevronClick = (e) => {
-    // get the div
-    const chevDiv = e.target.closest("div");
-
-    // get the child
-    const chevIcon = chevDiv.children[0];
-
-    // get the main button container
-    const main = document.querySelector(".main")
-    
     // console.log(mainBtns);
     if (chevIcon.className === "fas fa-chevron-up"){
         // console.log("go up");
@@ -64,20 +62,27 @@ const handleChevronClick = (e) => {
         chevIcon.className = "fas fa-chevron-down";
 
         // disable pointer activity in the main
-        main.classList.add("disabled"); 
+        Array.from(main.children).forEach(child => {
+            child.classList.add("disabled")
+        })
     }else if (chevIcon.className === "fas fa-chevron-down"){
-        // console.log("go down");
-
-        // go down
-        overlay.style.transform ="translateY(0%)";
-
-        // change class of icon
-        chevIcon.className = "fas fa-chevron-up";
-
-        // enable main buttons
-        main.classList.remove("disabled");
+        goDown();
     }
 }
+
+const goDown = () => {
+    // go down
+    overlay.style.transform ="translateY(0%)";
+
+    // change class of icon
+    chevIcon.className = "fas fa-chevron-up";
+
+    // enable main buttons
+    Array.from(main.children).forEach(child => {
+        child.classList.remove("disabled")
+    })
+}
+
 
 const toggleMode = (e) => {
     const target = e.target.closest("#mode-toggle");
@@ -97,4 +102,7 @@ copyBtn.addEventListener("click", copyAns)
 chervon.addEventListener("click", handleChevronClick);
 
 // mode toggle
-modeBtn.addEventListener("click", toggleMode)
+modeBtn.addEventListener("click", toggleMode);
+
+// main
+main.addEventListener("click", goDown)

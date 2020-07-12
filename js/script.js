@@ -65,12 +65,34 @@ const isDotValid = () => {
     return true;
 }
 
-// update display
+// update input display
 const updateInputDisplay = () => {
     // merge the list items
     const liMerged = display.join("");
 
     inputDisplay.value = liMerged;
+}
+
+// update output display
+const updateOutputDisplay = () => {
+    // merge the value list
+    let valueListMerged = value.join("");
+
+    // if the string is empty just give an empty output
+    if (valueListMerged === "") {
+        // show it on the output
+        outputDisplay.value = "";
+        return
+    } 
+
+    // get the merged value and find the eval value
+    ans = eval(valueListMerged);
+
+    // get the number of d.p for the answer
+    const DP = getDecimalPlace(ans);
+
+    // show it on the output
+    outputDisplay.value = eval(ans.toFixed(DP));
 }
 
 // handle operators
@@ -146,17 +168,8 @@ const handleEqual = () => {
     // if there is no value, don't go further
     if (!value[0]) return;
 
-    // merge the value list
-    let valueListMerged = value.join("")
-
-    // get the merged value and find the eval value
-    ans = eval(valueListMerged)
-
-    // get the number of d.p for the answer
-    const DP = getDecimalPlace(ans);
-
-    // show it on the output
-    outputDisplay.value = eval(ans.toFixed(DP));
+    // check the input and process it for output
+    updateOutputDisplay();
 
     // clear the input display screen, current variable and display variable
     current = "";
@@ -172,8 +185,9 @@ const getDecimalPlace = (num) => {
     let DP =0;
 
     // if num is a decimal
-    if (!(num % 1 === 0)){
+    if ((isFinite(num)) && !(num % 1 === 0)){
         // get the decimal part
+        console.log(num)
         const decimal = num.toString().split(".")[1];
 
         // get the num of decimal place
@@ -194,12 +208,9 @@ const handleBackspace = () => {
     // if it's a number, delete for current, value and display
     if (!isNaN(prevEntry) || prevEntry === ".") {
         current = current.slice(0, -1);
-    }else{
-        
     }
+    
     backspaceDisplays();
-
-    // if it is some other things, do some other things
 
     // update the input
     updateInputDisplay();
@@ -268,6 +279,79 @@ const handleLevelOne = (target) => {
     }
 
 }
+
+// for long press cancel
+(function () {
+  
+    // get the left right top and bottom coordinate of the button.
+    let top = backspace.getBoundingClientRect().top,
+        bottom = backspace.getBoundingClientRect().bottom,
+        right = backspace.getBoundingClientRect().right,
+        left = backspace.getBoundingClientRect().left;
+
+    // Create variable for setTimeout
+    let delay;
+
+    // clear inputs
+    const clearInput = () => {
+        // let _this = this;
+
+        // console.log(_this)
+        // clear display space
+        const clearDisplay = () => {
+            // clear an variables
+            display = [];
+            value = [];
+            current = "";
+
+            // update the input and output
+            updateInputDisplay();
+            updateOutputDisplay();
+        }
+        
+        // set a delay to ensure it's a long press
+        delay = setTimeout(clearDisplay, 1800);   
+
+        // console.log(delay)
+    }
+
+    backspace.addEventListener('mousedown', () => {
+        clearInput();
+    }, true);
+
+
+    backspace.addEventListener('touchstart', (e) => {
+        clearInput();
+        
+    }, true);
+
+    backspace.addEventListener('mouseup', () => {
+        // On mouse up, we know it is no longer a longpress
+        clearTimeout(delay);
+    });
+
+    backspace.addEventListener('touchend', (e) => {
+        // when the touch is event end
+        // get the co
+        clearTimeout(delay);
+
+        
+    });
+
+    backspace.addEventListener('mouseleave', (e) => {
+        // when the mouse moves out, cancel the long press
+        clearTimeout(delay);
+    });
+
+    backspace.addEventListener('touchmove', (e) => {
+
+
+        // console.log(e.changedTouches[0].pageX);
+        if (e.changedTouches[0].pageX> right || e.changedTouches[0].pageX < left || e.changedTouches[0].pageY >bottom || e.changedTouches[0].pageY<top){
+            clearTimeout(delay);
+        }
+    });
+}());
 
 // add event listener to it...
 // numbers
