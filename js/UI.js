@@ -56,7 +56,7 @@ const handleChevronClick = (e) => {
         // console.log("go up");
 
         // go up
-        overlay.style.transform ="translateY(-89%)";
+        overlay.style.transform ="translateY(-90%)";
 
         // change class of icon
         chevIcon.className = "fas fa-chevron-down";

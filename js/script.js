@@ -19,7 +19,7 @@ const operatorBtns = document.querySelectorAll("button[data-operator]");
 
 // EQUAL
 // get the equal operator
-const equal = document.getElementById("equal");
+const equals = document.querySelectorAll(".equal");
 
 // get the output field
 const outputDisplay = document.getElementById("output-field");
@@ -29,9 +29,11 @@ const outputDisplay = document.getElementById("output-field");
 const backspace = document.getElementById("backspace");
 
 // ADVANCE FUNCTIONS
-const advanceFunctionsBtn = document.querySelectorAll("button[data-advance]") 
+const advanceFunctionsBtn = document.querySelectorAll("button[data-advance]");
 
-// console.log(advanceFunctionsBtn)
+// ANSWER BTN
+// get the answer btn
+const answerBtn = document.querySelector(".answer");
 
 // functions
 // handle numbers
@@ -91,8 +93,17 @@ const updateOutputDisplay = () => {
     // get the number of d.p for the answer
     const DP = getDecimalPlace(ans);
 
+    // update the answer btn
+    updateAns(ans, DP);
+
     // show it on the output
     outputDisplay.value = eval(ans.toFixed(DP));
+}
+
+const updateAns = (ans, decimalPlaces) => {
+    answerBtn.value = ans;
+
+    answerBtn.dataset.display = eval(ans.toFixed(decimalPlaces));
 }
 
 // handle operators
@@ -310,7 +321,7 @@ const handleLevelOne = (target) => {
         }
         
         // set a delay to ensure it's a long press
-        delay = setTimeout(clearDisplay, 1800);   
+        delay = setTimeout(clearDisplay, 1000);   
 
         // console.log(delay)
     }
@@ -330,7 +341,7 @@ const handleLevelOne = (target) => {
         clearTimeout(delay);
     });
 
-    backspace.addEventListener('touchend', (e) => {
+    backspace.addEventListener('touchend', () => {
         // when the touch is event end
         // get the co
         clearTimeout(delay);
@@ -338,7 +349,7 @@ const handleLevelOne = (target) => {
         
     });
 
-    backspace.addEventListener('mouseleave', (e) => {
+    backspace.addEventListener('mouseleave', () => {
         // when the mouse moves out, cancel the long press
         clearTimeout(delay);
     });
@@ -365,8 +376,9 @@ operatorBtns.forEach(operatorBtn => {
 })
 
 // equal
-equal.addEventListener("click", handleEqual);
-
+equals.forEach((equal) => {
+    equal.addEventListener("click", handleEqual);
+})
 // backspace
 backspace.addEventListener("click", handleBackspace);
 

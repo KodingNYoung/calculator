@@ -46,11 +46,12 @@
                     
                     <button data-number value="." data-display=".">.</button>
                     <button data-number value="0" data-display="0">0</button>
-                    <button id="equal"><i class="fas fa-equals"></i></button>  
+                    <button class="equal"><i class="fas fa-equals"></i></button>  
                 </div>
                 
                 <div class="operators">
                     <button id="backspace"><i class="fas fa-backspace"></i></button>
+                    <button class="answer" data-number>Ans</button>
                     <button data-operator value="/" data-display="÷"><i class="fas fa-divide"></i></button>
                     <button data-operator value="*" data-display="×"><i class="fas fa-times"></i></button>
                     <button data-operator value="-" data-display="-"><i class="fas fa-minus"></i></button>
@@ -76,13 +77,12 @@
                 <button data-advance data-level="1"  value="Math.log(" data-display="ln(">ln</button>
                 <button data-advance data-level="1"  value="Math.exp(" data-display="e(">e</button>
                 <button data-advance value=")" data-display=")">)</button>
-                
+                <button class="equal"><i class="fas fa-equals"></i></button>
             </div>
            </div>
         </div>
     </div>
     <script src="js/script.js"></script>
     <script src="js/UI.js"></script>
-    <script src="js/test.js"></script>
 </body>
 </html>
